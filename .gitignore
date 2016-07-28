@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/GraphBuilder/obj/Debug
+/GraphBuilder/bin/Debug
+/GraphBuilder/.vs/GraphBuilder/v14
