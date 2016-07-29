@@ -16,7 +16,7 @@ namespace GraphBuilder.ViewModels
 
         public void AddNode(IInputElement source, object node, MouseButtonEventArgs args)
         {
-            if (blockNew) return;
+            if (blockNew || !(source is Canvas)) return;
 
             Graph.Nodes.Add(new NodeViewModel
             {
