@@ -21,8 +21,6 @@ namespace GraphBuilder.ViewModels
             set { y = value; NotifyOfPropertyChange(() => Y); }
         }
 
-        public bool IsCaptured { get; set; }
-
         public int Key { get; set; }
         public int Value { get; set; }
         public List<EdgeViewModel> Connections { get; } = new List<EdgeViewModel>();

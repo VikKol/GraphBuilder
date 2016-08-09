@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Caliburn.Micro;
+using GraphBuilder.Models;
 
 namespace GraphBuilder.ViewModels
 {
@@ -10,6 +11,7 @@ namespace GraphBuilder.ViewModels
     {
         private int nodeCounter = 0;
         private bool blockNew = false;
+        private NodeCapture nodeCapture;
         private NodeViewModel tmpSrcNode = null;
 
         public GraphViewModel Graph { set; get; } = new GraphViewModel();
@@ -48,25 +50,31 @@ namespace GraphBuilder.ViewModels
         public void CaptureNode(IInputElement source, NodeViewModel node, MouseButtonEventArgs args)
         {
             blockNew = true;
-            node.IsCaptured = true;
+            nodeCapture.Node = node;
+            nodeCapture.Source = source;
+            nodeCapture.State = NodeCaptureState.Captured;
+
             args.Handled = true;
             Mouse.OverrideCursor = Cursors.Hand;
         }
 
-        public void ReleaseNode(IInputElement source, NodeViewModel node, MouseButtonEventArgs args)
+        public void ReleaseNode(MouseButtonEventArgs args)
         {
             blockNew = false;
-            node.IsCaptured = false;
+            nodeCapture.Node = null;
+            nodeCapture.Source = null;
+            nodeCapture.State = NodeCaptureState.Default;
+
             args.Handled = true;
             Mouse.OverrideCursor = null;
         }
 
-        public void MoveNode(IInputElement source, NodeViewModel node, MouseEventArgs args)
+        public void MoveNode(MouseEventArgs args)
         {
-            if (node.IsCaptured && args.LeftButton == MouseButtonState.Pressed)
+            if (nodeCapture.State == NodeCaptureState.Captured && args.LeftButton == MouseButtonState.Pressed)
             {
-                node.X += (int)args.GetPosition(source).X - NodeViewModel.NodeRadius;
-                node.Y += (int)args.GetPosition(source).Y - NodeViewModel.NodeRadius;
+                nodeCapture.Node.X += (int)args.GetPosition(nodeCapture.Source).X - NodeViewModel.NodeRadius;
+                nodeCapture.Node.Y += (int)args.GetPosition(nodeCapture.Source).Y - NodeViewModel.NodeRadius;
 
                 args.Handled = true;
             }

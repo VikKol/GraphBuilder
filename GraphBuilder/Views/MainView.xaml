@@ -28,7 +28,10 @@
         <Canvas Grid.Column="1" 
                 x:Name="GraphCanvas" Background="White"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                cal:Message.Attach="[Event MouseLeftButtonUp] = [Action AddNode($source, $dataContext, $eventArgs)]">
+                cal:Message.Attach="
+                    [Event MouseLeftButtonUp] = [Action AddNode($source, $dataContext, $eventArgs)];
+                    [Event MouseLeftButtonUp] = [Action ReleaseNode($eventArgs)];
+                    [Event MouseMove] = [Action MoveNode($eventArgs)]">
 
             <ItemsControl ItemsSource="{Binding Graph.Edges}">
                 <ItemsControl.ItemTemplate>
@@ -61,15 +64,11 @@
                                     </i:EventTrigger>
                                     <i:EventTrigger EventName="MouseLeftButtonUp">
                                         <cal:ActionMessage MethodName="ReleaseNode">
-                                            <cal:Parameter Value="$source"></cal:Parameter>
-                                            <cal:Parameter Value="$dataContext"></cal:Parameter>
                                             <cal:Parameter Value="$eventArgs"></cal:Parameter>
                                         </cal:ActionMessage>
                                     </i:EventTrigger>
                                     <i:EventTrigger EventName="MouseMove">
                                         <cal:ActionMessage MethodName="MoveNode">
-                                            <cal:Parameter Value="$source"></cal:Parameter>
-                                            <cal:Parameter Value="$dataContext"></cal:Parameter>
                                             <cal:Parameter Value="$eventArgs"></cal:Parameter>
                                         </cal:ActionMessage>
                                     </i:EventTrigger>
