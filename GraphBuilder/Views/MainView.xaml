@@ -9,7 +9,7 @@
              mc:Ignorable="d">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" MinWidth="100" />
+            <ColumnDefinition Width="2*" MinWidth="250" />
             <ColumnDefinition Width="8*" MinWidth="800" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
@@ -21,9 +21,9 @@
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="5*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Content="Export Matrix"></Button>
-            <Button Grid.Row="0" Grid.Column="1" Content="Export List"></Button>
-            <RichTextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></RichTextBox>
+            <Button Grid.Row="0" Grid.Column="0" Padding="5" Content="Export Adjacency List" cal:Message.Attach="[Event Click] = [Action ExportAdjacencyList()]"></Button>
+            <CheckBox Grid.Row="0" Grid.Column="1" Margin="10,8,0,0" Content="Export Weight?" IsChecked="{Binding ExportPanel.ExportWeight}"></CheckBox>
+            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding ExportPanel.Content, Mode=TwoWay}"></TextBox>
         </Grid>
         <Canvas Grid.Column="1" 
                 x:Name="GraphCanvas" Background="White"

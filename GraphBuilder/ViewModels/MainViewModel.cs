@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Caliburn.Micro;
@@ -14,7 +13,8 @@ namespace GraphBuilder.ViewModels
         private NodeCapture nodeCapture;
         private NodeViewModel tmpSrcNode = null;
 
-        public GraphViewModel Graph { set; get; } = new GraphViewModel();
+        public GraphViewModel Graph { get; } = new GraphViewModel();
+        public ExportPanelViewModel ExportPanel { get; } = new ExportPanelViewModel();
 
         public void AddNode(IInputElement source, object node, MouseButtonEventArgs args)
         {
@@ -79,5 +79,7 @@ namespace GraphBuilder.ViewModels
                 args.Handled = true;
             }
         }
+
+        public void ExportAdjacencyList() => ExportPanel.ExportAdjacencyList(Graph);
     }
 }
